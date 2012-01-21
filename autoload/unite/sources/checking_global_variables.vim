@@ -14,46 +14,41 @@ let s:source = {
 \		"change" : {
 \			"description" : "set 0 or 1",
 \			"is_selectable" : 1,
+\			"is_invalidate_cache" : 1,
 \			"is_quit" : 0
 \		},
 \		"set_0" : {
 \			"description" : "set 0",
 \			"is_selectable" : 1,
+\			"is_invalidate_cache" : 1,
 \			"is_quit" : 0
 \		},
 \		"set_1" : {
 \			"description" : "set 1",
 \			"is_selectable" : 1,
+\			"is_invalidate_cache" : 1,
 \			"is_quit" : 0
 \		},
 \	}
 \}
 
-function! s:redraw()
-	call unite#clear_message()
-	let unite = unite#get_current_unite()
-	call unite#force_redraw()
-endfunction
 
 function! s:source.action_table.change.func(candidates)
 	for candidate in a:candidates
 		let g:[candidate.action__name] = !candidate.action__var
 	endfor
-	call s:redraw()
 endfunction
 
 function! s:source.action_table.set_0.func(candidates)
 	for candidate in a:candidates
 		let g:[candidate.action__name] = 0
 	endfor
-	call s:redraw()
 endfunction
 
 function! s:source.action_table.set_1.func(candidates)
 	for candidate in a:candidates
 		let g:[candidate.action__name] = 1
 	endfor
-	call s:redraw()
 endfunction
 
 function! s:source.gather_candidates(args, context)
